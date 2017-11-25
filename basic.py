@@ -1,0 +1,56 @@
+import base64
+import codecs
+import io
+import logging
+import time
+import warnings
+from subprocess import check_output
+
+import folium
+import folium.plugins
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import plotly
+import plotly.graph_objs as go
+import plotly.offline as py
+import plotly.tools as tls
+import seaborn as sns
+from IPython.display import HTML, display
+from matplotlib import animation, rc
+from mpl_toolkits.basemap import Basemap
+from scipy.misc import imread
+
+start_time = time.time()
+# set up logging
+formatter = logging.Formatter('%(asctime)s : %(name)s :: %(levelname)s : %(message)s')
+logger = logging.getLogger('main')
+logger.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+logger.addHandler(console_handler)
+console_handler.setLevel(logging.DEBUG)
+logger.debug('started')
+
+plt.style.use('fivethirtyeight')
+
+if False:
+    logger.debug(check_output(["ls", "../input"]).decode("utf8"))
+
+data_path = './input/'
+
+terror = pd.read_csv(data_path + 'globalterrorismdb_0617dist.csv', encoding='ISO-8859-1')
+terror.rename(
+    columns={'iyear': 'Year', 'imonth': 'Month', 'iday': 'Day', 'country_txt': 'Country', 'region_txt': 'Region',
+             'attacktype1_txt': 'AttackType', 'target1': 'Target', 'nkill': 'Killed', 'nwound': 'Wounded',
+             'summary': 'Summary', 'gname': 'Group', 'targtype1_txt': 'Target_type', 'weaptype1_txt': 'Weapon_type',
+             'motive': 'Motive'}, inplace=True)
+terror = terror[
+    ['Year', 'Month', 'Day', 'Country', 'Region', 'city', 'latitude', 'longitude', 'AttackType', 'Killed', 'Wounded',
+     'Target', 'Summary', 'Group', 'Target_type', 'Weapon_type', 'Motive']]
+terror['casualities'] = terror['Killed'] + terror['Wounded']
+terror.head(3)
+
+elapsed_time = time.time() - start_time
+logger.debug('elapsed time %d seconds', elapsed_time)
