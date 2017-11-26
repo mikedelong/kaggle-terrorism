@@ -50,7 +50,13 @@ terror = terror[
     ['Year', 'Month', 'Day', 'Country', 'Region', 'city', 'latitude', 'longitude', 'AttackType', 'Killed', 'Wounded',
      'Target', 'Summary', 'Group', 'Target_type', 'Weapon_type', 'Motive']]
 terror['casualities'] = terror['Killed'] + terror['Wounded']
-terror.head(3)
+
+plt.subplots(figsize=(15, 6))
+sns.countplot('Year', data=terror, palette='RdYlGn_r', edgecolor=sns.color_palette('dark', 7))
+plt.xticks(rotation=90)
+plt.title('Number Of Terrorist Activities Each Year')
+output_filename = 'activities_by_year.png'
+plt.savefig(output_filename)
 
 elapsed_time = time.time() - start_time
 logger.debug('elapsed time %d seconds', elapsed_time)
