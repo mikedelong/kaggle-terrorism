@@ -61,7 +61,7 @@ plt.savefig(output_filename)
 
 plt.subplots(figsize=(15,6))
 sns.countplot('AttackType',data=terror,palette='inferno',order=terror['AttackType'].value_counts().index)
-plt.xticks(rotation=90)
+plt.xticks(rotation=45)
 plt.title('Method of attack')
 output_filename = 'method_of_attack.png'
 plt.tight_layout()
