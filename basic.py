@@ -54,9 +54,15 @@ terror['casualities'] = terror['Killed'] + terror['Wounded']
 plt.subplots(figsize=(15, 6))
 sns.countplot('Year', data=terror, palette='RdYlGn_r', edgecolor=sns.color_palette('dark', 7))
 plt.xticks(rotation=90)
-plt.title('Number Of Terrorist Activities Each Year')
+plt.title('Activity counts by year')
 output_filename = 'activities_by_year.png'
 plt.savefig(output_filename)
+
+plt.subplots(figsize=(15,6))
+sns.countplot('AttackType',data=terror,palette='inferno',order=terror['AttackType'].value_counts().index)
+plt.xticks(rotation=90)
+plt.title('Methods of attack')
+plt.show()
 
 elapsed_time = time.time() - start_time
 logger.debug('elapsed time %d seconds', elapsed_time)
