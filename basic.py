@@ -62,7 +62,7 @@ plt.subplots(figsize=(15,6))
 sns.countplot('AttackType',data=terror,palette='inferno',order=terror['AttackType'].value_counts().index)
 plt.xticks(rotation=90)
 plt.title('Method of attack')
-output_filename = 'method_of_attach.png'
+output_filename = 'method_of_attack.png'
 plt.savefig(output_filename)
 
 elapsed_time = time.time() - start_time
