@@ -55,6 +55,7 @@ plt.subplots(figsize=(15, 6))
 sns.countplot('Year', data=terror, palette='RdYlGn_r', edgecolor=sns.color_palette('dark', 7))
 plt.xticks(rotation=90)
 plt.title('Activity count by year')
+plt.tight_layout()
 output_filename = 'activities_by_year.png'
 plt.savefig(output_filename)
 
