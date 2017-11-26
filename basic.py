@@ -63,6 +63,7 @@ sns.countplot('AttackType',data=terror,palette='inferno',order=terror['AttackTyp
 plt.xticks(rotation=90)
 plt.title('Method of attack')
 output_filename = 'method_of_attack.png'
+plt.tight_layout()
 plt.savefig(output_filename)
 
 elapsed_time = time.time() - start_time
