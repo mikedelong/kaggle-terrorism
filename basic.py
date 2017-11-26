@@ -51,7 +51,7 @@ terror.rename(
 terror = terror[
     ['Year', 'Month', 'Day', 'Country', 'Region', 'city', 'latitude', 'longitude', 'AttackType', 'Killed', 'Wounded',
      'Target', 'Summary', 'Group', 'Target_type', 'Weapon_type', 'Motive']]
-terror['casualities'] = terror['Killed'] + terror['Wounded']
+terror['casualties'] = terror['Killed'] + terror['Wounded']
 
 plt.subplots(figsize=(15, 6))
 sns.countplot('Year', data=terror, palette='RdYlGn_r', edgecolor=sns.color_palette('dark', 7))
@@ -70,12 +70,12 @@ plt.tight_layout()
 plt.savefig(output_filename)
 
 m3 = Basemap(projection='mill',llcrnrlat=-80,urcrnrlat=80, llcrnrlon=-180,urcrnrlon=180,lat_ts=20,resolution='c',lat_0=True,lat_1=True)
-lat_100=list(terror[terror['casualities']>=75].latitude)
-long_100=list(terror[terror['casualities']>=75].longitude)
+lat_100=list(terror[terror['casualties']>=75].latitude)
+long_100=list(terror[terror['casualties']>=75].longitude)
 x_100,y_100=m3(long_100,lat_100)
 m3.plot(x_100, y_100,'go',markersize=5,color = 'r')
-lat_=list(terror[terror['casualities']<75].latitude)
-long_=list(terror[terror['casualities']<75].longitude)
+lat_=list(terror[terror['casualties']<75].latitude)
+long_=list(terror[terror['casualties']<75].longitude)
 x_,y_=m3(long_,lat_)
 m3.plot(x_, y_,'go',markersize=2,color = 'b',alpha=0.4)
 m3.drawcoastlines()
@@ -85,8 +85,8 @@ m3.drawmapboundary(fill_color='aqua')
 fig=plt.gcf()
 fig.set_size_inches(10,6)
 plt.title('Global Terrorist Attacks')
-plt.legend(loc='lower left',handles=[mpatches.Patch(color='b', label = "< 75 casualities"),
-                    mpatches.Patch(color='red',label='> 75 casualities')])
+plt.legend(loc='lower left',handles=[mpatches.Patch(color='b', label = "< 75 casualties"),
+                    mpatches.Patch(color='red',label='> 75 casualties')])
 plt.show()
 
 elapsed_time = time.time() - start_time
