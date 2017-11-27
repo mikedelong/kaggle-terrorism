@@ -25,6 +25,30 @@ from mpl_toolkits.basemap import Basemap
 from scipy.misc import imread
 
 start_time = time.time()
+
+
+def color_point(x):
+    if x >= 30:
+        color = 'red'
+    elif ((x > 0 and x < 30)):
+        color = 'blue'
+    else:
+        color = 'green'
+    return color
+
+
+def point_size(x):
+    if (x > 30 and x < 100):
+        size = 2
+    elif (x >= 100 and x < 500):
+        size = 8
+    elif x >= 500:
+        size = 16
+    else:
+        size = 0.5
+    return size
+
+
 # set up logging
 formatter = logging.Formatter('%(asctime)s : %(name)s :: %(levelname)s : %(message)s')
 logger = logging.getLogger('main')
@@ -89,6 +113,33 @@ plt.title('Global Terrorist Attacks')
 plt.legend(loc='lower left', handles=[mpatches.Patch(color='b', label="< 75 casualties"),
                                       mpatches.Patch(color='red', label='> 75 casualties')])
 output_filename = 'global_attack_map.png'
+plt.tight_layout()
+plt.savefig(output_filename)
+
+# todo come back and turn this into a static map
+if False:
+    terror_fol = terror.copy()
+    terror_fol.dropna(subset=['latitude', 'longitude'], inplace=True)
+    location_fol = terror_fol[['latitude', 'longitude']][:5000]
+    country_fol = terror_fol['Country'][:5000]
+    city_fol = terror_fol['city'][:5000]
+    killed_fol = terror_fol['Killed'][:5000]
+    wound_fol = terror_fol['Wounded'][:5000]
+    map2 = folium.Map(location=[30, 0], tiles='CartoDB dark_matter', zoom_start=2)
+    for point in location_fol.index:
+        info = '<b>Country: </b>' + str(country_fol[point]) + '<br><b>City: </b>: ' + str(
+            city_fol[point]) + '<br><b>Killed </b>: ' + str(killed_fol[point]) + '<br><b>Wounded</b> : ' + str(
+            wound_fol[point])
+        iframe = folium.IFrame(html=info, width=200, height=200)
+        folium.CircleMarker(list(location_fol.loc[point].values), popup=folium.Popup(iframe),
+                            radius=point_size(killed_fol[point]), color=color_point(killed_fol[point])).add_to(map2)
+
+
+plt.subplots(figsize=(15,6))
+sns.countplot('Region',data=terror,palette='RdYlGn',edgecolor=sns.color_palette('dark',7),order=terror['Region'].value_counts().index)
+plt.xticks(rotation=60)
+plt.title('Number Of Terrorist Activities By Region')
+output_filename = 'attacks_by_region.png'
 plt.tight_layout()
 plt.savefig(output_filename)
 
