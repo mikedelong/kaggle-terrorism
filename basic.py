@@ -143,5 +143,13 @@ output_filename = 'attacks_by_region.png'
 plt.tight_layout()
 plt.savefig(output_filename)
 
+terror_region=pd.crosstab(terror.Year,terror.Region)
+terror_region.plot(color=sns.color_palette('Set2',12))
+fig=plt.gcf()
+fig.set_size_inches(18,6)
+output_filename = 'trend_by_region.png'
+plt.tight_layout()
+plt.savefig(output_filename)
+
 elapsed_time = time.time() - start_time
 logger.debug('elapsed time %d seconds', elapsed_time)
