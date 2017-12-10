@@ -88,4 +88,37 @@ layout = dict(
 
 data = [fatality, injury]
 figure = dict(data = data, layout = layout)
+
+# plot(figure)
+
+# terrorist attacks by year
+terror_peryear = np.asarray(terror_usa.groupby('year').year.count())
+
+terror_years = np.arange(1970, 2016)
+# terrorist attacks in 1993 missing from database
+terror_years = np.delete(terror_years, [23])
+
+trace = [go.Scatter(
+         x = terror_years,
+         y = terror_peryear,
+         mode = 'lines',
+         line = dict(
+             color = 'rgb(240, 140, 45)',
+             width = 3)
+         )]
+
+layout = go.Layout(
+         title = 'Terrorist Attacks by Year in United States (1970-2015)',
+         xaxis = dict(
+             rangeslider = dict(thickness = 0.05),
+             showline = True,
+             showgrid = False
+         ),
+         yaxis = dict(
+             range = [0.1, 425],
+             showline = True,
+             showgrid = False)
+         )
+
+figure = dict(data = trace, layout = layout)
 plot(figure)
