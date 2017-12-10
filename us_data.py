@@ -12,11 +12,11 @@ from plotly.offline import plot
 # init_notebook_mode()
 
 terror_data = pd.read_csv('./input/globalterrorismdb_0617dist.csv', encoding='ISO-8859-1',
-                          usecols=[0, 1, 2, 3, 8, 11, 13, 14, 35, 84, 100, 103])
+                          usecols=[0, 1, 2, 3, 8, 11, 13, 14, 35, 82, 100, 103])
 terror_data = terror_data.rename(
     columns={'eventid':'id', 'iyear':'year', 'imonth':'month', 'iday':'day',
              'country_txt':'country', 'provstate':'state', 'targtype1_txt':'target',
-             'weapsubtype1_txt':'weapon', 'nkillter':'fatalities', 'nwoundte':'injuries'})
+             'weaptype1_txt':'weapon', 'nkill':'fatalities', 'nwound':'injuries'})
 
 
 terror_data['fatalities'] = terror_data['fatalities'].fillna(0).astype(int)
