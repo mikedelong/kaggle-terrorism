@@ -12,7 +12,7 @@ from plotly.offline import plot
 # init_notebook_mode()
 
 terror_data = pd.read_csv('./input/globalterrorismdb_0617dist.csv', encoding='ISO-8859-1',
-                          usecols=[0, 1, 2, 3, 8, 11, 13, 14, 35, 82, 100, 103])
+                          usecols=[0, 1, 2, 3, 8, 11, 13, 14, 35, 82, 98, 101])
 terror_data = terror_data.rename(
     columns={'eventid':'id', 'iyear':'year', 'imonth':'month', 'iday':'day',
              'country_txt':'country', 'provstate':'state', 'targtype1_txt':'target',
@@ -89,7 +89,7 @@ layout = dict(
 data = [fatality, injury]
 figure = dict(data = data, layout = layout)
 
-# plot(figure)
+plot(figure)
 
 # terrorist attacks by year
 terror_peryear = np.asarray(terror_usa.groupby('year').year.count())
@@ -121,4 +121,4 @@ layout = go.Layout(
          )
 
 figure = dict(data = trace, layout = layout)
-plot(figure)
+# plot(figure)
