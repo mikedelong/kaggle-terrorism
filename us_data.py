@@ -5,13 +5,10 @@ import pandas as pd
 
 pd.options.mode.chained_assignment = None
 
-import plotly.plotly as py
-import plotly.graph_objs as go
-from plotly import tools
+# import plotly.plotly as py
+import plotly.graph_objs as graph_objs
+# from plotly import tools
 from plotly.offline import plot
-
-# , init_notebook_mode
-# init_notebook_mode()
 
 terror_data = pd.read_csv('./input/globalterrorismdb_0617dist.csv', encoding='ISO-8859-1',
                           usecols=[0, 1, 2, 3, 8, 11, 13, 14, 35, 82, 98, 101])
@@ -99,7 +96,7 @@ terror_years = np.arange(1970, 2016)
 # terrorist attacks in 1993 missing from database
 terror_years = np.delete(terror_years, [23])
 
-trace = [go.Scatter(
+trace = [graph_objs.Scatter(
     x=terror_years,
     y=terror_peryear,
     mode='lines',
@@ -108,7 +105,7 @@ trace = [go.Scatter(
         width=3)
 )]
 
-layout = go.Layout(
+layout = graph_objs.Layout(
     title='Terrorist Attacks by Year in United States (1970-2015)',
     xaxis=dict(
         rangeslider=dict(thickness=0.05),
