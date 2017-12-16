@@ -44,14 +44,9 @@ trace_line = dict(color='rgb(240, 140, 45)', width=3)
 trace = [graph_objs.Scatter(line=trace_line, mode='lines', x=terror_years, y=terror_peryear)]
 
 layout_xaxis = dict(rangeslider=dict(thickness=0.05), showline=True, showgrid=False)
-layout = graph_objs.Layout(
-    title='Terrorist Attacks by Year in United States (1970-2015)',
-    xaxis=layout_xaxis,
-    yaxis=dict(
-        range=[0.1, 425],
-        showline=True,
-        showgrid=False)
-)
+layout_yaxis = dict(range=[0.1, 425], showline=True, showgrid=False)
+layout = graph_objs.Layout(title='Terrorist Attacks by Year in United States (1970-2015)', xaxis=layout_xaxis,
+                           yaxis=layout_yaxis)
 
 figure = dict(data=trace, layout=layout)
 plot(figure)
