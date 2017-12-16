@@ -41,12 +41,7 @@ terror_years = np.arange(1970, 2016)
 terror_years = np.delete(terror_years, [23])
 
 trace_line = dict(color='rgb(240, 140, 45)', width=3)
-trace = [graph_objs.Scatter(
-    x=terror_years,
-    y=terror_peryear,
-    mode='lines',
-    line=trace_line
-)]
+trace = [graph_objs.Scatter(line=trace_line, mode='lines', x=terror_years, y=terror_peryear)]
 
 layout = graph_objs.Layout(
     title='Terrorist Attacks by Year in United States (1970-2015)',
