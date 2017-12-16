@@ -40,13 +40,12 @@ terror_years = np.arange(1970, 2016)
 # terrorist attacks in 1993 missing from database
 terror_years = np.delete(terror_years, [23])
 
+trace_line = dict(color='rgb(240, 140, 45)', width=3)
 trace = [graph_objs.Scatter(
     x=terror_years,
     y=terror_peryear,
     mode='lines',
-    line=dict(
-        color='rgb(240, 140, 45)',
-        width=3)
+    line=trace_line
 )]
 
 layout = graph_objs.Layout(
