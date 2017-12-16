@@ -6,8 +6,9 @@ import plotly.graph_objs as graph_objs
 from plotly.offline import plot
 pd.options.mode.chained_assignment = None
 
+columns_to_use = [0, 1, 2, 3, 8, 11, 13, 14, 35, 82, 98, 101]
 terror_data = pd.read_csv('./input/globalterrorismdb_0617dist.csv', encoding='ISO-8859-1',
-                          usecols=[0, 1, 2, 3, 8, 11, 13, 14, 35, 82, 98, 101])
+                          usecols=columns_to_use)
 terror_data = terror_data.rename(
     columns={'eventid': 'id', 'iyear': 'year', 'imonth': 'month', 'iday': 'day',
              'country_txt': 'country', 'provstate': 'state', 'targtype1_txt': 'target',
@@ -31,59 +32,7 @@ terror_usa['text'] = terror_usa['date'].dt.strftime('%B %-d, %Y') + '<br>' + \
                      terror_usa['fatalities'].astype(str) + ' Killed, ' + \
                      terror_usa['injuries'].astype(str) + ' Injured'
 
-fatality = dict(
-    type='scattergeo',
-    locationmode='USA-states',
-    lon=terror_usa[terror_usa.fatalities > 0]['longitude'],
-    lat=terror_usa[terror_usa.fatalities > 0]['latitude'],
-    text=terror_usa[terror_usa.fatalities > 0]['text'],
-    mode='markers',
-    name='Fatalities',
-    hoverinfo='text+name',
-    marker=dict(
-        size=terror_usa[terror_usa.fatalities > 0]['fatalities'] ** 0.255 * 8,
-        opacity=0.95,
-        color='rgb(240, 140, 45)')
-)
 
-injury = dict(
-    type='scattergeo',
-    locationmode='USA-states',
-    lon=terror_usa[terror_usa.fatalities == 0]['longitude'],
-    lat=terror_usa[terror_usa.fatalities == 0]['latitude'],
-    text=terror_usa[terror_usa.fatalities == 0]['text'],
-    mode='markers',
-    name='Injuries',
-    hoverinfo='text+name',
-    marker=dict(
-        size=(terror_usa[terror_usa.fatalities == 0]['injuries'] + 1) ** 0.245 * 8,
-        opacity=0.85,
-        color='rgb(20, 150, 187)')
-)
-
-layout = dict(
-    title='Terrorist Attacks by Latitude/Longitude in United States (1970-2015)',
-    showlegend=True,
-    legend=dict(
-        x=0.85, y=0.4
-    ),
-    geo=dict(
-        scope='usa',
-        projection=dict(type='albers usa'),
-        showland=True,
-        landcolor='rgb(250, 250, 250)',
-        subunitwidth=1,
-        subunitcolor='rgb(217, 217, 217)',
-        countrywidth=1,
-        countrycolor='rgb(217, 217, 217)',
-        showlakes=True,
-        lakecolor='rgb(255, 255, 255)')
-)
-
-data = [fatality, injury]
-figure = dict(data=data, layout=layout)
-
-plot(figure)
 
 # terrorist attacks by year
 terror_peryear = np.asarray(terror_usa.groupby('year').year.count())
@@ -115,4 +64,4 @@ layout = graph_objs.Layout(
 )
 
 figure = dict(data=trace, layout=layout)
-# plot(figure)
+plot(figure)
