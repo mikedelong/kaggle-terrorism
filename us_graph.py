@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objs as graph_objs
 from plotly.offline import plot
+
 pd.options.mode.chained_assignment = None
 
 columns_to_use = [0, 1, 2, 3, 8, 11, 13, 14, 35, 82, 98, 101]
@@ -31,8 +32,6 @@ terror_usa = terror_usa.drop_duplicates(['date', 'latitude', 'longitude', 'fatal
 terror_usa['text'] = terror_usa['date'].dt.strftime('%B %-d, %Y') + '<br>' + \
                      terror_usa['fatalities'].astype(str) + ' Killed, ' + \
                      terror_usa['injuries'].astype(str) + ' Injured'
-
-
 
 # terrorist attacks by year
 terror_peryear = np.asarray(terror_usa.groupby('year').year.count())
