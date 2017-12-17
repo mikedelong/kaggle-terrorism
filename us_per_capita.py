@@ -46,8 +46,6 @@ terror_usa['text'] = terror_usa['date'].dt.strftime('%B %-d, %Y') + '<br>' + \
                      terror_usa['fatalities'].astype(str) + ' Killed, ' + \
                      terror_usa['injuries'].astype(str) + ' Injured'
 
-
-
 # terrorist attacks per 100,000 people in state
 terror_perstate = np.asarray(terror_usa.groupby('state').state.count())
 terror_percapita = np.round(terror_perstate / state_population * 100000, 2)
@@ -57,29 +55,29 @@ terror_percapita[8] = round(terror_percapita[8] / 6, 2)
 terror_scale = [[0, 'rgb(252, 232, 213)'], [1, 'rgb(240, 140, 45)']]
 
 data = [dict(
-        type = 'choropleth',
-        autocolorscale = False,
-        colorscale = terror_scale,
-        showscale = False,
-        locations = us_states,
-        locationmode = 'USA-states',
-        z = terror_percapita,
-        marker = dict(
-            line = dict(
-                color = 'rgb(255, 255, 255)',
-                width = 2)
-            )
-        )]
+    type='choropleth',
+    autocolorscale=False,
+    colorscale=terror_scale,
+    showscale=False,
+    locations=us_states,
+    locationmode='USA-states',
+    z=terror_percapita,
+    marker=dict(
+        line=dict(
+            color='rgb(255, 255, 255)',
+            width=2)
+    )
+)]
 
 layout = dict(
-         title = 'Terrorist Attacks per 100,000 People in United States (1970-2015)',
-         geo = dict(
-             scope = 'usa',
-             projection = dict(type = 'albers usa'),
-             countrycolor = 'rgb(255, 255, 255)',
-             showlakes = True,
-             lakecolor = 'rgb(255, 255, 255)')
-         )
+    title='Terrorist Attacks per 100,000 People in United States (1970-2015)',
+    geo=dict(
+        countrycolor='rgb(255, 255, 255)',
+        projection=dict(type='albers usa'),
+        showlakes=True,
+        lakecolor='rgb(255, 255, 255)'),
+        scope='usa'
+)
 
-figure = dict(data = data, layout = layout)
+figure = dict(data=data, layout=layout)
 plot(figure)
