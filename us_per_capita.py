@@ -54,26 +54,15 @@ terror_percapita[8] = round(terror_percapita[8] / 6, 2)
 
 terror_scale = [[0, 'rgb(252, 232, 213)'], [1, 'rgb(240, 140, 45)']]
 
-data = [dict(
-    type='choropleth',
-    autocolorscale=False,
-    colorscale=terror_scale,
-    showscale=False,
-    locations=us_states,
-    locationmode='USA-states',
-    z=terror_percapita,
-    marker=dict(
-        line=dict(
-            color='rgb(255, 255, 255)',
-            width=2)
-    )
-)]
+marker_line = dict(color='rgb(255, 255, 255)', width=2)
+data = [dict(autocolorscale=False, colorscale=terror_scale, locationmode='USA-states',
+             locations=us_states, showscale=False, type='choropleth', z=terror_percapita,
+             marker=dict(line=marker_line))]
 
 layout_projection = dict(type='albers usa')
 layout_geo = dict(countrycolor='rgb(255, 255, 255)', lakecolor='rgb(255, 255, 255)')
-layout = dict(
-    title='Terrorist Attacks per 100,000 People in United States (1970-2015)',
-    geo=layout_geo, projection=layout_projection, scope='usa', showlakes=True)
+layout = dict(title='Terrorist Attacks per 100,000 People in United States (1970-2015)',
+              geo=layout_geo, projection=layout_projection, scope='usa', showlakes=True)
 
 figure = dict(data=data, layout=layout)
 plot(figure)
