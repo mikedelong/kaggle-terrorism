@@ -70,10 +70,10 @@ data = [dict(
 )]
 
 layout_projection = dict(type='albers usa')
+layout_geo = dict(countrycolor='rgb(255, 255, 255)', lakecolor='rgb(255, 255, 255)')
 layout = dict(
     title='Terrorist Attacks per 100,000 People in United States (1970-2015)',
-    geo=dict(countrycolor='rgb(255, 255, 255)',lakecolor='rgb(255, 255, 255)'),
-        projection=layout_projection,scope='usa',showlakes=True)
+    geo=layout_geo, projection=layout_projection, scope='usa', showlakes=True)
 
 figure = dict(data=data, layout=layout)
 plot(figure)
