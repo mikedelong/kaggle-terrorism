@@ -20,10 +20,11 @@ state_population = np.asarray(
 columns_to_use = [0, 1, 2, 3, 8, 11, 13, 14, 35, 82, 98, 101]
 terror_data = pd.read_csv('./input/globalterrorismdb_0617dist.csv', encoding='ISO-8859-1',
                           usecols=columns_to_use)
+terror_data_columns = {'country_txt': 'country', 'eventid': 'id', 'iday': 'day', 'imonth': 'month',
+                       'iyear': 'year', 'nkill': 'fatalities', 'nwound': 'injuries', 'provstate': 'state',
+                       'targtype1_txt': 'target', 'weaptype1_txt': 'weapon'}
 terror_data = terror_data.rename(
-    columns={'eventid': 'id', 'iyear': 'year', 'imonth': 'month', 'iday': 'day',
-             'country_txt': 'country', 'provstate': 'state', 'targtype1_txt': 'target',
-             'weaptype1_txt': 'weapon', 'nkill': 'fatalities', 'nwound': 'injuries'})
+    columns=terror_data_columns)
 
 terror_data['fatalities'] = terror_data['fatalities'].fillna(0).astype(int)
 terror_data['injuries'] = terror_data['injuries'].fillna(0).astype(int)
@@ -58,8 +59,7 @@ data = [dict(autocolorscale=False, colorscale=terror_scale, locationmode='USA-st
 layout_projection = dict(type='albers usa')
 layout_geo = dict(countrycolor='rgb(255, 255, 255)', lakecolor='rgb(255, 255, 255)', projection=layout_projection,
                   scope='usa', showlakes=True)
-layout = dict(title='Terrorist Attacks per 100,000 People in United States (1970-2015)',
-              geo=layout_geo)
+layout = dict(title='Terrorist Attacks per 100,000 People in United States (1970-2015)', geo=layout_geo)
 
 figure = dict(data=data, layout=layout)
 plot(figure)
