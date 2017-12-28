@@ -12,7 +12,7 @@ logger.debug('started')
 
 try:
     from mpl_toolkits.basemap import Basemap
-except Exception as error:
-    logger.warning(error)
+    logger.debug('success!')
+except ImportError as importError:
+    logger.warning(importError)
 
-logger.debug('success!')
