@@ -1,4 +1,3 @@
-
 import logging
 
 # set up logging
@@ -17,4 +16,3 @@ except Exception as error:
     logger.warning(error)
 
 logger.debug('success!')
-
